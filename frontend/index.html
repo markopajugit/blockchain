@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Demo - Multi-User</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Blockchain Demo</h1>
+            <p class="subtitle">Create wallets, send transactions, and mine blocks</p>
+        </header>
+
+        <div class="main-layout">
+            <!-- Left Panel: Controls -->
+            <div class="panel controls-panel">
+                <h2>Controls</h2>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <label>Difficulty:</label>
+                        <input type="number" id="difficulty" min="1" max="5" value="2">
+                        <button id="set-difficulty">Set</button>
+                    </div>
+                    <button id="generate-wallet" class="btn-primary">Create New Wallet</button>
+                    <button id="reset-blockchain" class="btn-secondary">Reset Chain</button>
+                </div>
+
+                <div class="form-group">
+                    <h3>Create Transaction</h3>
+                    <select id="tx-from-select" class="wallet-select">
+                        <option value="">Select sender wallet...</option>
+                    </select>
+                    <select id="tx-to-select" class="wallet-select">
+                        <option value="">Select recipient wallet...</option>
+                    </select>
+                    <input type="number" id="tx-amount" placeholder="Amount" step="0.01" min="0.01">
+                    <button id="create-transaction" class="btn-primary">Create Transaction</button>
+                </div>
+
+                <div class="form-group">
+                    <h3>Mine Block</h3>
+                    <select id="miner-select" class="wallet-select">
+                        <option value="">Select miner wallet...</option>
+                    </select>
+                    <button id="mine-block" class="btn-primary">Mine Block</button>
+                </div>
+
+                <div class="status" id="blockchain-status"></div>
+            </div>
+
+            <!-- Middle Panel: Wallets -->
+            <div class="panel wallets-panel">
+                <h2>Wallets</h2>
+                <div class="wallets-list" id="wallets-list">
+                    <p class="empty-state">No wallets created yet. Click "Create New Wallet" to get started.</p>
+                </div>
+            </div>
+
+            <!-- Right Panel: Blockchain -->
+            <div class="panel blockchain-panel">
+                <h2>Blockchain</h2>
+                <div class="chain-info">
+                    <p>Chain Length: <span id="chain-length">1</span></p>
+                    <p>Pending Transactions: <span id="pending-tx">0</span></p>
+                    <p>Chain Valid: <span id="chain-valid">Yes</span></p>
+                </div>
+                <div class="chain-view" id="chain-view"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/blockchain.js"></script>
+</body>
+</html>
