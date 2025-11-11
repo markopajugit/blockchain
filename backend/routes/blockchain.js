@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 const Blockchain = require('../blockchain/Blockchain');
 const Transaction = require('../blockchain/Transaction');
 const Wallet = require('../blockchain/Wallet');
 
+// Get storage path from environment or use default
+const STORAGE_PATH = process.env.BLOCKCHAIN_STORAGE_PATH || path.join(__dirname, '../data/blockchain.json');
+
 // Initialize blockchain instance (singleton)
-let blockchain = new Blockchain();
+let blockchain = new Blockchain(STORAGE_PATH);
 
 // NOTE: Bitcoin has NO limit on the number of blocks - the chain grows indefinitely.
 // The "21 million" you might be thinking of refers to the TOTAL SUPPLY OF BITCOINS (the currency),
@@ -330,7 +334,7 @@ router.post('/reset', (req, res) => {
         if (fs.existsSync(blockchain.storagePath)) {
             fs.unlinkSync(blockchain.storagePath);
         }
-        blockchain = new Blockchain();
+        blockchain = new Blockchain(STORAGE_PATH);
         wallets.clear(); // Clear wallets on reset
         res.json({ message: 'Blockchain reset successfully (storage file deleted)' });
     } catch (error) {

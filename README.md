@@ -184,6 +184,35 @@ blockchainvsdb/
 - Wallets are stored in-memory and reset on server restart
 - Transactions require sufficient balance in sender's wallet
 
+## Environment Variables
+
+The application supports the following environment variables for production deployment:
+
+- **PORT**: Server port (default: 3000)
+- **HOST**: Server host (default: '0.0.0.0' for production, use 'localhost' for local dev)
+- **NODE_ENV**: Set to 'production' for production mode
+- **FRONTEND_PATH**: Path to frontend directory (default: '../frontend' relative to server.js)
+- **BLOCKCHAIN_STORAGE_PATH**: Path to blockchain storage file (default: '../data/blockchain.json')
+
+### Example Production Configuration
+
+Create a `.env` file in the `backend` directory:
+
+```env
+PORT=8080
+HOST=0.0.0.0
+NODE_ENV=production
+BLOCKCHAIN_STORAGE_PATH=/var/data/blockchain.json
+FRONTEND_PATH=/var/www/frontend
+```
+
+### Frontend API Configuration
+
+The frontend API base URL can be configured via:
+1. Meta tag in `index.html`: `<meta name="api-base" content="/api">`
+2. Global variable: Set `window.API_BASE` before loading `app.js`
+3. Default: `/api` (relative path, works in most deployments)
+
 ## Troubleshooting
 
 **Port Already in Use:**
@@ -197,6 +226,12 @@ blockchainvsdb/
 - Make sure the sender wallet has enough coins
 - Mine blocks to earn mining rewards (100 coins per block)
 - Check wallet balance in the wallets panel
+
+**Production Deployment Issues:**
+- Ensure all environment variables are set correctly
+- Check that file paths are absolute or correctly relative to the deployment location
+- Verify the frontend path is accessible from the server
+- Check that the blockchain storage directory has write permissions
 
 ## License
 

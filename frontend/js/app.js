@@ -1,5 +1,20 @@
 // Main application logic
-const API_BASE = '/api';
+// Get API base URL from meta tag, environment variable, or default to '/api'
+const getApiBase = () => {
+    // Check for meta tag (can be set in HTML)
+    const metaTag = document.querySelector('meta[name="api-base"]');
+    if (metaTag && metaTag.content) {
+        return metaTag.content;
+    }
+    // Check for window.API_BASE (can be set via script tag before this file loads)
+    if (typeof window !== 'undefined' && window.API_BASE) {
+        return window.API_BASE;
+    }
+    // Default to relative path (works in most deployments)
+    return '/api';
+};
+
+const API_BASE = getApiBase();
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
